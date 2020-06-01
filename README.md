@@ -12,4 +12,4 @@ I really like playing soccer, learning new things (at the moment I'm still learn
 
 
 ![Me](/images/imagen.jpg)
-Format: ![Alt Text](url)
+Format: ![Me](url)
