@@ -3,7 +3,7 @@
 
 
 * Name: Mario Moreno
-* Discord seurname: TS: Mario Moreno
+* Discord username: TS: Mario Moreno
 * Location: Guatemala City
 
 I am a Java/Backend developer looking forward to master Android mobile skills and create great Android apps and hopefully get a new job :).
