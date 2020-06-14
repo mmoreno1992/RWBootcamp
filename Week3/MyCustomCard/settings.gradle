@@ -1,0 +1,2 @@
+rootProject.name='My Custom Card'
+include ':app'
