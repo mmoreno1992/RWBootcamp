@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">My Custom Card</string>
+    <string name="introductionDialogTitle">Information</string>
+    <string name="instructions">Welcome, with this app you can create a <b>fun and beautiful custom card for developers</b>,
+                                just choose your avatar, name, and a text. Enjoy! </string>
+    <string name="dontShowInstructionsAgain">Don\'t show again</string>
+    <string name="dialogInstructionsTitle">Information </string>
+    <string name="instructionsButton">Got it</string>
+    <string name="aboutDialogTitle">%1$s %2$s</string>
+    <string name="aboutMenuItem">About</string>
+    <string name="positiveButtonInstructiosDialog">Got it</string>
+    <string name="aboutMessage">Created by Mario learning with RayWenderlich :D</string>
+    <string name="imageProgrammingLanguageDescription">Image of your preferred Programming Language</string>
+    <string name="imagePreviousProgrammingLanguage">Previous Programming Languag</string>
+    <string name="imageNextProgrammingLanguage">Next Programming Language</string>
+    <string name="nameLabel">Your Name:</string>
+    <string name="experienceLabel">Your experience:</string>
+    <string name="imageFacebookDescription">Facebook Logo</string>
+    <string name="imageInstagramDescription">Instagram Logo</string>
+    <string name="imageTwitterDescription">Twitter Logo</string>
 </resources>
