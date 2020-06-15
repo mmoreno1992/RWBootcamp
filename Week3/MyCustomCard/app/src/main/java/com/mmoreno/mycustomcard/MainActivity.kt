@@ -1,12 +1,18 @@
 package com.mmoreno.mycustomcard
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.mmoreno.mycustomcard.model.DataRepository
+import com.mmoreno.mycustomcard.util.AnimationType
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -18,16 +24,37 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val HAS_SHOWN_INSTRUCTIONS_KEY = "MainActivity.hasShownInstructions"
+        val CARD_POSITION_KEY = "MainActivity.cardPosition"
     }
 
     private var hasShownInstructions = false
+    private val customCards = DataRepository.listOfCustomCards;
+    private var cardPosition = 0
 
+    /**
+     * Overriding default onCreate metho
+     * @param savedInstanceState Bundle provided to store/retrieve data
+     * First time the Activity is created it is null
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        showInstructions(savedInstanceState)
-
+        extractSavedState(savedInstanceState)
+        showInstructions()
         setListeners()
+        showCustomCard()
+    }
+
+    /**
+     * Function to show the object representing a custom card
+     * based on the cardPosition instance variable
+     * @return [Unit]
+     */
+    private fun showCustomCard() {
+        val card = customCards.get(cardPosition)
+        programmingLanguage.text = card.programmingLanguage
+        logoProgrammingLanguage.setImageResource(getResourceId(card.resourceName))
+        experience.text = card.experience
     }
 
     /**
@@ -36,21 +63,79 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setListeners() {
         previousProgrammingLanguage.setOnClickListener {
-            it.startAnimation(getAnimation("Previous"))
+            getPreviousProgrammingLanguage(it)
         }
+
         nextProgrammingLanguage.setOnClickListener {
-            it.startAnimation(getAnimation("Next"))
+            getNextProgrammingLanguage(it)
         }
 
         facebookIcon.setOnClickListener {
-            it.startAnimation(getAnimation("SocialMedia"))
+            it.startAnimation(getAnimation(AnimationType.SOCIAL_MEDIA))
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://www.facebook.com/mm0ren0")
+                )
+            )
         }
+
         instagramIcon.setOnClickListener {
-            it.startAnimation(getAnimation("SocialMedia"))
+            it.startAnimation(getAnimation(AnimationType.SOCIAL_MEDIA))
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.instagram.com/mahumo92/")
+                )
+            )
         }
+
         twitterIcon.setOnClickListener {
-            it.startAnimation(getAnimation("SocialMedia"))
+            it.startAnimation(getAnimation(AnimationType.SOCIAL_MEDIA))
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://twitter.com/mahumogt")
+                )
+            )
+
         }
+
+    }
+
+    /**
+     * Function to show the previous Custom Card Programming Language
+     * @param view the button pressed by the user, if it is the first element
+     * the method is not going to animate the button
+     * @return [Unit]
+     */
+    private fun getPreviousProgrammingLanguage(view: View) {
+        if (cardPosition - 1 >= 0) {
+            cardPosition--
+            view.startAnimation(getAnimation(AnimationType.PREVIOUS))
+            showCustomCard()
+        } else {
+            Toast.makeText(this, getString(R.string.firstElementNotification), Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    /**
+     * Function to show the next Custom Card Programming Language
+     * @param view the button pressed by the user, if it is the last element
+     * the method is not going to animate the button
+     * @return [Unit]
+     */
+    private fun getNextProgrammingLanguage(view: View) {
+        if (cardPosition + 1 < customCards.size) {
+            cardPosition++
+            view.startAnimation(getAnimation(AnimationType.NEXT))
+            showCustomCard()
+
+        } else {
+            Toast.makeText(this, R.string.lastElementNotification, Toast.LENGTH_SHORT).show()
+        }
+        nextProgrammingLanguage.visibility = View.GONE
     }
 
     /**
@@ -58,21 +143,22 @@ class MainActivity : AppCompatActivity() {
      * to animate a View
      * @return [Animation] Animation object for animate a view
      */
-    private fun getAnimation(useOfAnimation: String): Animation {
-        return when (useOfAnimation) {
-            "Previous", "Next" -> AnimationUtils.loadAnimation(this, R.anim.scale)
-            else -> AnimationUtils.loadAnimation(this, R.anim.rotate)
+    private fun getAnimation(animationType: AnimationType): Animation {
+        return when (animationType) {
+            AnimationType.NEXT, AnimationType.PREVIOUS -> AnimationUtils.loadAnimation(
+                this,
+                R.anim.scale
+            )
+            AnimationType.SOCIAL_MEDIA -> AnimationUtils.loadAnimation(this, R.anim.rotate)
         }
     }
 
     /**
      * Function to show an instructions dialog to let the user
      * know what can do with the app
-     * @param [Bundle] Bundle provided to store/retrieve data
      * @return [Unit]
      */
-    private fun showInstructions(savedInstanceState: Bundle?) {
-        extractSavedState(savedInstanceState)
+    private fun showInstructions() {
 
         if (!hasShownInstructions) {
             AlertDialog.Builder(this)
@@ -83,7 +169,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 .create()
                 .show()
-
         }
     }
 
@@ -97,6 +182,8 @@ class MainActivity : AppCompatActivity() {
     private fun extractSavedState(savedInstanceState: Bundle?) {
         hasShownInstructions =
             savedInstanceState?.getBoolean(HAS_SHOWN_INSTRUCTIONS_KEY, false) ?: false
+        cardPosition =
+            savedInstanceState?.getInt(CARD_POSITION_KEY, 0) ?: 0
     }
 
     /**
@@ -105,6 +192,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean(HAS_SHOWN_INSTRUCTIONS_KEY, hasShownInstructions)
+        outState.putInt(CARD_POSITION_KEY, cardPosition)
         super.onSaveInstanceState(outState)
     }
 
