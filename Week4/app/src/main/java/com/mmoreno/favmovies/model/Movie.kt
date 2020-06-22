@@ -1,14 +1,17 @@
 package com.mmoreno.favmovies.model
 
-import java.time.LocalDate
 import java.util.*
 
-open class Movie(
+/**
+ * Model data class for storing information of every Movie
+ */
+data class Movie(
     val id: Int,
     val releaseDate: Date,
-    val title: String,
+    val title: Int,
     val summary: Int,
-    val poster: Int
+    val poster: Int,
+    val genre:Int
 ) {
     var isFavorite: Boolean = false
     var rating: Float = 0.0F

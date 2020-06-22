@@ -13,11 +13,17 @@
             android:id="@+id/action_moviesListFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/fade_out" />
+            app:exitAnim="@android:anim/fade_out" >
+
+        </action>
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.mmoreno.favmovies.MovieDetailFragment"
         android:label="fragment_movie_detail"
-        tools:layout="@layout/fragment_movie_detail" />
+        tools:layout="@layout/fragment_movie_detail" >
+        <argument
+            android:name="movieListPosition"
+            app:argType="integer" />
+    </fragment>
 </navigation>
