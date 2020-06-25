@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Fav Movies</string>
+    <string name="jokerDescription">In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: the Joker.</string>
+    <string name="endGameDescription">After the devastating events of Vengadores: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
+    <string name="cocoDescription">Aspiring musician Miguel, confronted with his family\'s ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather, a legendary singer.</string>
+    <string name="badBoysDescription">Miami detectives Mike Lowrey and Marcus Burnett must face off against a mother-and-son pair of drug lords who wreak vengeful havoc on their city.</string>
+    <string name="jumanjiNextLevelDescription">In Jumanji: The Next Level, the gang is back but the game has changed. As they return to rescue one of their own, the players will have to brave parts unknown from arid deserts to snowy mountains, to escape the world\'s most dangerous game.</string>
+    <string name="hannibalDescription">Explores the early relationship between the renowned psychiatrist and his patient, a young FBI criminal profiler, who is haunted by his ability to empathize with serial killers.</string>
+    <string name="sherlockDescription">A modern update finds the famous sleuth and his doctor partner solving crime in 21st century London.</string>
+    <string name="theSinnerDescription">Anthology series that examines how and why ordinary people commit brutal crimes.</string>
+    <string name="breakingBadDescription">"A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future. "</string>
+
+    <string name="hello_blank_fragment">Hello this is the list fragment</string>
+    <string name="genreLabel">Genre :</string>
+    <string name="posterMovieContentDescription">Movie\'s Poster</string>
+    <string name="releaseDateLabel">Release Date :</string>
+    <string name="summaryLabel">Summary :</string>
+    <string name="breakingBadTitle">Breaking Bad</string>
+    <string name="theSinnerTitle">The Sinner</string>
+    <string name="sherlockTitle">Sherlock</string>
+    <string name="hannibalTitle">Hannibal</string>
+    <string name="jumanjiTitle">Jumanji : The Next Level</string>
+    <string name="badBoysTitle">Bad Boys For Life</string>
+    <string name="cocoTitle">Coco</string>
+    <string name="endGameTitle">End Game</string>
+    <string name="jokerTitle">Joker</string>
+    <string name="genreDrama">Drama</string>
+    <string name="genreAction">Action</string>
+    <string name="genreComedy">Comedy</string>
+    <string name="genreHorror">Horror</string>
+    <string name="genreMistery">Mystery</string>
+    <string name="blackWidowTitle">Black Widow</string>
+    <string name="blackWidowDescription">A film about Natasha Romanoff in her quests between the films Civil War and Infinity War.</string>
+
+</resources>

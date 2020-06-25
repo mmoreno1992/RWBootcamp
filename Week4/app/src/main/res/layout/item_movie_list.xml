@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/doubleMargin"
         android:layout_marginEnd="@dimen/simpleMargin"
+        android:fontFamily="@font/aclonica"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/posterMovie"
         app:layout_constraintTop_toTopOf="@id/posterMovie"
@@ -77,4 +78,6 @@
         app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
         app:layout_constraintStart_toEndOf="@+id/posterMovie"
         app:layout_constraintTop_toBottomOf="@+id/movieGenre" />
+
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
