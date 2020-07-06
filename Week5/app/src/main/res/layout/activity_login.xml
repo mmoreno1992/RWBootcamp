@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.LoginActivity">
+
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="@dimen/profileImageWidth"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/profileImageContentDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleLogin"
+        app:srcCompat="@drawable/ic_default_profile" />
+
+    <ImageButton
+        android:id="@+id/uploadImageView"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/uploadChooseImageContentDescription"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="@+id/profileImageView"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="@+id/profileImageView"
+        app:layout_constraintTop_toBottomOf="@+id/profileImageView"
+        app:srcCompat="@drawable/ic_file_upload" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userInputLayout"
+        style="@style/outlinedTextInputLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="@+id/guideline4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userInputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/user_label"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordInputLayout"
+        style="@style/outlinedTextInputLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/doubleMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/userInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordInputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_label"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginButton"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/doubleMargin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/doubleMargin"
+        android:contentDescription="@string/loginLabelContentDescription"
+        android:text="@string/loginLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rememberMeCheckBox" />
+
+    <TextView
+        android:id="@+id/titleLogin"
+        style="@style/HeaderMovieItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/rememberMeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/doubleMargin"
+        android:checked="true"
+        android:text="Remember Me"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
