@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/itemMovieListHeight"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/movieTitle"
+        style="@style/HeaderMovieItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/doubleMargin"
+        android:layout_marginEnd="@dimen/simpleMargin"
+        android:fontFamily="@font/aclonica"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/posterMovie"
+        app:layout_constraintTop_toTopOf="@id/posterMovie"
+        tools:text="EL JOKER" />
+
+    <ImageView
+        android:id="@+id/posterMovie"
+        android:layout_width="@dimen/posterMovieWidth"
+        android:layout_height="@dimen/posterMovieHeight"
+        android:contentDescription="@string/posterMovieContentDescription"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/genreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/doubleMargin"
+        android:layout_marginTop="@dimen/doubleMargin"
+        android:text="@string/genreLabel"
+        app:layout_constraintStart_toEndOf="@id/posterMovie"
+        app:layout_constraintTop_toBottomOf="@id/movieTitle" />
+
+    <TextView
+        android:id="@+id/movieGenre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/doubleMargin"
+        android:layout_marginEnd="@dimen/simpleMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/genreLabel"
+        app:layout_constraintTop_toTopOf="@id/genreLabel" />
+
+    <com.like.LikeButton
+        android:id="@+id/favoriteButton"
+        android:layout_width="@dimen/likeButtonWidth"
+        android:layout_height="@dimen/likeButtonHeight"
+        android:layout_marginTop="@dimen/simpleMargin"
+        android:layout_marginEnd="@dimen/simpleMargin"
+        android:layout_marginBottom="@dimen/simpleMargin"
+        app:anim_scale_factor="0.1"
+        app:icon_size="@dimen/iconSizeLikeButton"
+        app:icon_type="heart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieGenre"
+        app:liked="false" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@android:style/Widget.Material.RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/simpleMargin"
+        android:layout_marginEnd="@dimen/doubleMargin"
+        android:layout_marginBottom="@dimen/simpleMargin"
+        android:alpha="0.5"
+        android:numStars="@integer/numberOfStarts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
+        app:layout_constraintStart_toEndOf="@+id/posterMovie"
+        app:layout_constraintTop_toBottomOf="@+id/movieGenre" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
