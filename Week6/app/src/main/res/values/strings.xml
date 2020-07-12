@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Fav Movies</string>
+    <string name="genreLabel">Genre :</string>
+    <string name="posterMovieContentDescription">Movie\'s Poster</string>
+    <string name="releaseDateLabel">Release Date :</string>
+    <string name="summaryLabel">Summary :</string>
+    <string name="genreDrama">Drama</string>
+    <string name="genreAction">Action</string>
+    <string name="genreComedy">Comedy</string>
+    <string name="genreHorror">Horror</string>
+    <string name="genreMistery">Mystery</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="user_label">User</string>
+    <string name="password_label">Password</string>
+    <string name="profileImageContentDescription">Profile default image</string>
+    <string name="uploadChooseImageContentDescription">Icon for uploading an image</string>
+    <string name="loginLabelContentDescription">Login</string>
+    <string name="loginLabel">Login</string>
+    <string name="passwordError">Password must have at least 5 characters</string>
+    <string name="userError">User length must be greater than 4</string>
+    <string name="user">mario</string>
+    <string name="password">moreno</string>
+    <string name="logoutLabel">Logout</string>
+    <string name="canceledImage">Cancelled</string>
+    <string name="rememberMeCheckBoxLabel">Remember Me</string>
+    <string name="checkUserAndPasswordLengthLogin">Check username/password length to login</string>
+    <string name="uploadProfileImageTooltip">Click to pick a profile image</string>
+
+
+</resources>
