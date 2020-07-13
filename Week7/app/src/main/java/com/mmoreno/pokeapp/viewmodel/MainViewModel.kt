@@ -1,31 +1,55 @@
 package com.mmoreno.pokeapp.viewmodel
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.mmoreno.pokeapp.PokeDataSource
+import com.mmoreno.pokeapp.model.PokeDatabase
 import com.mmoreno.pokeapp.model.PokeEntity
+import com.mmoreno.pokeapp.ui.paging.PokeBoundaryCallback
 
 /**
  * ViewModel for interacting and retrieving the information
- *
  */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    fun createLiveData(): LiveData<PagedList<PokeEntity>> {
+    /**
+     * MutableLiveData instance for observing and changing the UI
+     * according it
+     */
+    val showLoading: MutableLiveData<Int> = MutableLiveData()
+
+    init {
+        showLoading.postValue(View.GONE)
+    }
+
+    /**
+     * Initialize and build the PagedList
+     * that can be converted to LiveData
+     */
+    fun initializedPagedListBuilder():
+            LivePagedListBuilder<Int, PokeEntity> {
+
         val config = PagedList.Config.Builder()
-            .setInitialLoadSizeHint(40)
             .setPageSize(40)
-            .setPrefetchDistance(10)
+            .setEnablePlaceholders(false)
             .build()
 
-        return LivePagedListBuilder(object : DataSource.Factory<String, PokeEntity>() {
-            override fun create(): DataSource<String, PokeEntity> {
-                return PokeDataSource()
-            }
-        }, config).build()
+        val database = PokeDatabase.create(getApplication())
+        val livePageListBuilder = LivePagedListBuilder(
+            database.pokeDao().pokeRecords(),
+            config
+        )
+        livePageListBuilder.setBoundaryCallback(
+            PokeBoundaryCallback(
+                database, showLoading
+            )
+        )
+
+        return livePageListBuilder
     }
+
+
 }

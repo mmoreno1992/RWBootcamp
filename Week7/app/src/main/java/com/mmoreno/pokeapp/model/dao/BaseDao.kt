@@ -4,9 +4,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 
 /**
- * Using DAO's inheritance capability and making use of
+ * Using DAO's inheritance capability and making use of Generics [T]
  * @author Mario
- * Generics [T]
+ *
  */
 interface BaseDao<T> {
 
@@ -14,7 +14,14 @@ interface BaseDao<T> {
      * @param entity varargs param entities for storing in the
      * database
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(vararg entity: T)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(vararg entity: T)
+
+    /**
+     * @param List of entities to be inserted in the
+     * database
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(entities: List<T>)
 
 }
