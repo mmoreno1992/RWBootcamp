@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PokeApp</string>
+    <string name="imageViewPokemonContentDescription">Template image of pokeballs</string>
+</resources>
