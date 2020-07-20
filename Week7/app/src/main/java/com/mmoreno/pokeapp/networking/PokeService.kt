@@ -13,12 +13,15 @@ interface PokeService {
         const val BASE_URL = "https://pokeapi.co/api/v2/"
     }
 
-    @GET("pokemon/")
-    fun listPokemons(): Call<PokeResponse>
-
+    /**
+     * Get request of the PokeAPI
+     * I decided to retrieve 100 records by default
+     */
     @GET("pokemon/")
     fun listPokemons(
-        @Query("offset") offset: String,
-        @Query("limit") limit: String
+        @Query("offset") offset: Int? = 0,
+        @Query("limit") limit: Int? = 100,
+        @Query("previous") previous: String? = null,
+        @Query("next") next: String? = null
     ): Call<PokeResponse>
 }

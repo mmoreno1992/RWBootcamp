@@ -1,4 +1,4 @@
-package com.mmoreno.pokeapp
+package com.mmoreno.pokeapp.ui.paging
 
 import androidx.recyclerview.widget.DiffUtil
 import com.mmoreno.pokeapp.model.PokeEntity
@@ -8,9 +8,15 @@ import com.mmoreno.pokeapp.model.PokeEntity
  * for comparing PokemonResult (pokemon records) items in the list
  */
 class DiffItemCallback : DiffUtil.ItemCallback<PokeEntity>() {
+    /**
+     * Check if items are the same based on its url this is the primary key also in the database
+     */
     override fun areItemsTheSame(oldItem: PokeEntity, newItem: PokeEntity): Boolean =
         oldItem.url == newItem.url
 
+    /**
+     * Checking if contents are the same, using name and url
+     */
     override fun areContentsTheSame(oldItem: PokeEntity, newItem: PokeEntity): Boolean =
         oldItem.name == newItem.name && oldItem.url == newItem.url
 }
