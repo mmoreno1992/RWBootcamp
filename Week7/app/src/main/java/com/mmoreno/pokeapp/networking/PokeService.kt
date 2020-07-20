@@ -1,6 +1,5 @@
 package com.mmoreno.pokeapp.networking
 
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,13 +14,14 @@ interface PokeService {
 
     /**
      * Get request of the PokeAPI
-     * I decided to retrieve 100 records by default
+     * I decided to retrieve 20 records by default
+     * In this week added support for Coroutines
      */
     @GET("pokemon/")
-    fun listPokemons(
+    suspend fun listPokemons(
         @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 100,
+        @Query("limit") limit: Int? = 20,
         @Query("previous") previous: String? = null,
         @Query("next") next: String? = null
-    ): Call<PokeResponse>
+    ): PokeResponse
 }

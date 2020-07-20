@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">PokeApp</string>
     <string name="imageViewPokemonContentDescription">Template image of pokeballs</string>
+    <string name="pokeNotification">Poke App</string>
+    <string name="notificationChannelId">POKE_CHANNEL</string>
+    <string name="notificationTitle">Poke Sync</string>
+    <string name="textSyncDataNotification">Hey! Great news :D we have synchronized new Pokemons. Enjoy!</string>
+    <string name="channelDescription">Channel for Poke Notifications</string>
 </resources>

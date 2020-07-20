@@ -40,5 +40,4 @@ class PokeEntity(
         return url.hashCode()
     }
 
-
 }
