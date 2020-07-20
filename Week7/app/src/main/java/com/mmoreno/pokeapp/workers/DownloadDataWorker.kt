@@ -1,7 +1,6 @@
 package com.mmoreno.pokeapp.workers
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.mmoreno.pokeapp.PokeApp
@@ -23,7 +22,7 @@ class DownloadDataWorker(context: Context, parameters: WorkerParameters) :
             if (records.isNotEmpty()) {
                 pokeDao.insert(records)
             }
-            Log.i("POKEAPP", "DEBERIA ENVIAR NOTIFICACION")
+            //Log.i("POKEAPP", "DEBERIA ENVIAR NOTIFICACION")
 
             sendDataSyncNotification(applicationContext)
 
