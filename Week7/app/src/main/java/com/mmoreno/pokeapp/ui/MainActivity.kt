@@ -1,8 +1,6 @@
 package com.mmoreno.pokeapp.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -15,7 +13,6 @@ import com.mmoreno.pokeapp.R
 import com.mmoreno.pokeapp.model.PokeEntity
 import com.mmoreno.pokeapp.ui.paging.PokeBoundaryCallback
 import com.mmoreno.pokeapp.ui.paging.PokePagedListAdapter
-import com.mmoreno.pokeapp.util.sendDataSyncNotification
 import com.mmoreno.pokeapp.viewmodel.MainViewModel
 import com.mmoreno.pokeapp.workers.DownloadDataWorker
 import kotlinx.android.synthetic.main.activity_main.*
@@ -74,6 +71,9 @@ class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInter
         viewModel.showLoading.postValue(visibility)
     }
 
+
+    //I implemented this code just for manual testing
+/*
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInter
         }
         return false
     }
+*/
 
 
     private fun setUpWorker() {
