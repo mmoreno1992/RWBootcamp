@@ -12,4 +12,7 @@ import com.mmoreno.pokeapp.model.PokeEntity
 interface PokeDao : BaseDao<PokeEntity> {
     @Query("SELECT name, url FROM POKE_TABLE")
     fun pokeRecords(): DataSource.Factory<Int, PokeEntity>
+
+    @Query("SELECT COUNT(1) FROM POKE_TABLE")
+    suspend fun countPokeRecords(): Int
 }

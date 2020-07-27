@@ -15,13 +15,13 @@ interface BaseDao<T> {
      * database
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg entity: T)
+    suspend fun insert(vararg entity: T)
 
     /**
      * @param List of entities to be inserted in the
      * database
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(entities: List<T>)
+    suspend fun insert(entities: List<T>)
 
 }
