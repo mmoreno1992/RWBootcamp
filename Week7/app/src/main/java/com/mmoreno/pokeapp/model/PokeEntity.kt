@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
 class PokeEntity(
     @PrimaryKey
     val url: String,
-    val name: String
+    var name: String
 ) {
     /**
      * Custom method for getting the ID of a Pokemon
@@ -28,8 +28,12 @@ class PokeEntity(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
+
         other as PokeEntity
+
         if (url != other.url) return false
+        if (name != other.name) return false
+
         return true
     }
 
@@ -37,7 +41,9 @@ class PokeEntity(
      * Overriding default hashCode
      */
     override fun hashCode(): Int {
-        return url.hashCode()
+        var result = url.hashCode()
+        result = 31 * result + name.hashCode()
+        return result
     }
 
 }

@@ -1,4 +1,4 @@
-package com.mmoreno.pokeapp.ui
+package com.mmoreno.pokeapp.view
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -11,8 +11,8 @@ import androidx.work.*
 import com.mmoreno.pokeapp.PokeApp
 import com.mmoreno.pokeapp.R
 import com.mmoreno.pokeapp.model.PokeEntity
-import com.mmoreno.pokeapp.ui.paging.PokeBoundaryCallback
-import com.mmoreno.pokeapp.ui.paging.PokePagedListAdapter
+import com.mmoreno.pokeapp.view.paging.PokeBoundaryCallback
+import com.mmoreno.pokeapp.view.paging.PokePagedListAdapter
 import com.mmoreno.pokeapp.viewmodel.MainViewModel
 import com.mmoreno.pokeapp.workers.DownloadDataWorker
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,14 +21,12 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Main Activity for displaying a RecyclerView
- * with a big list of Pokemons
+ * with a big list of Pokemon
  */
 class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInteractionListener {
 
     private val adapter by lazy(::PokePagedListAdapter)
-
     private val viewModel: MainViewModel by viewModels()
-
 
     /**
      * Overriding onCreate method
@@ -42,6 +40,7 @@ class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInter
             setUpWorker()
 
         setContentView(R.layout.activity_main)
+
         recyclerView.apply {
             adapter = this@MainActivity.adapter
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -53,12 +52,14 @@ class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInter
             )
         }
 
-        val liveData = viewModel.initializedPagedListBuilder().build()
-        liveData.observe(this, Observer<PagedList<PokeEntity>> { pagedList ->
+        //Observing a LiveData object for updating the UI
+       viewModel.getListOfPokemon().observe(this, Observer<PagedList<PokeEntity>> { pagedList ->
             adapter.submitList(pagedList)
         })
 
-        viewModel.showLoading.observe(this,
+        //Observing a MutableLiveData object for changing the state
+        //of the progress bar
+        viewModel.getLoadingFlag().observe(this,
             Observer { visibility ->
                 progressBar.visibility = visibility
             })
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInter
      * Changing the progress bar visibility
      */
     override fun changeLoadingVisibility(visibility: Int) {
-        viewModel.showLoading.postValue(visibility)
+        viewModel.getLoadingFlag().postValue(visibility)
     }
 
 
@@ -88,7 +89,9 @@ class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInter
     }
 */
 
-
+    /**
+     * Custom method for setting up the work
+     */
     private fun setUpWorker() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -98,7 +101,7 @@ class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInter
             .setConstraints(constraints)
             .build()
 
-        val workManager = WorkManager.getInstance(this)
+        WorkManager.getInstance(this)
             .enqueueUniquePeriodicWork(PokeApp.workName, ExistingPeriodicWorkPolicy.KEEP, work)
 
     }
