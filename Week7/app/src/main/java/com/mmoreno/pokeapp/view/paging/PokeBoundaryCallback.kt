@@ -12,7 +12,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import java.util.concurrent.Executors
 
 /**
  * Custom Callback for interacting with the paging feature
@@ -31,9 +30,8 @@ class PokeBoundaryCallback(
      * now it is using inject() with Koin :D
      */
     private val api: PokeService by inject()
-    private val executor = Executors.newSingleThreadExecutor()
     //An executor is needed for retrying operations
-    private val helper = PagingRequestHelper(executor)
+    private val helper: PagingRequestHelper by inject<PagingRequestHelper>()
     private var mPrevious: String? = null
     private var mNext: String? = null
 

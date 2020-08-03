@@ -4,6 +4,7 @@ import android.app.Application
 import com.mmoreno.pokeapp.di.databaseModule
 import com.mmoreno.pokeapp.di.mainViewModule
 import com.mmoreno.pokeapp.di.networkModule
+import com.mmoreno.pokeapp.di.threadingModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,11 +19,12 @@ class PokeApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-       // database = Room.databaseBuilder(this, PokeDatabase::class.java, ).build()
+        //Now this is done through dependency injection.
+        // database = Room.databaseBuilder(this, PokeDatabase::class.java, ).build()
         startKoin {
             androidContext(this@PokeApp)
             androidLogger()
-            modules(listOf(databaseModule, mainViewModule, networkModule))
+            modules(listOf(databaseModule, mainViewModule, networkModule, threadingModule))
         }
     }
 
