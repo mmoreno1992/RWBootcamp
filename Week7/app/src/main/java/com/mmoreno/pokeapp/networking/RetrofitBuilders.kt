@@ -1,9 +1,5 @@
 package com.mmoreno.pokeapp.networking
 
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
 /**
  * Builds retrofit dependencies.
  */
@@ -11,18 +7,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Returns an OkHttpClient for using with Retrofit
  */
+/*
 fun buildClient(): OkHttpClient =
     //Commented the HttpLogginInterceptor I only used it in testing
     OkHttpClient.Builder()
-        /*.addInterceptor(HttpLoggingInterceptor().apply {
+        */
+/*.addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
-        })*/
+        })*//*
+
         .build()
+*/
 
 /**
  * Returns an instance of Retrofit
  */
-fun buildRetrofit(): Retrofit {
+/*fun buildRetrofit(urlService: String): Retrofit {
 
     return Retrofit.Builder()
         .client(buildClient())
@@ -32,4 +32,4 @@ fun buildRetrofit(): Retrofit {
 }
 
 fun buildApiService(): PokeService =
-    buildRetrofit().create(PokeService::class.java)
+    buildRetrofit(PokeService.BASE_URL).create(PokeService::class.java)*/

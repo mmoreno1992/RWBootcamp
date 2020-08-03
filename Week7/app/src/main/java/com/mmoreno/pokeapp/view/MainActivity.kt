@@ -1,7 +1,6 @@
 package com.mmoreno.pokeapp.view
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
@@ -16,6 +15,7 @@ import com.mmoreno.pokeapp.view.paging.PokePagedListAdapter
 import com.mmoreno.pokeapp.viewmodel.MainViewModel
 import com.mmoreno.pokeapp.workers.DownloadDataWorker
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 
@@ -26,7 +26,9 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInteractionListener {
 
     private val adapter by lazy(::PokePagedListAdapter)
-    private val viewModel: MainViewModel by viewModels()
+
+    //The viewModel is injected lazily :) using Koin
+    private val viewModel: MainViewModel by viewModel()
 
     /**
      * Overriding onCreate method
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity(), PokeBoundaryCallback.RecyclerViewInter
         }
 
         //Observing a LiveData object for updating the UI
-       viewModel.getListOfPokemon().observe(this, Observer<PagedList<PokeEntity>> { pagedList ->
+        viewModel.getListOfPokemon().observe(this, Observer<PagedList<PokeEntity>> { pagedList ->
             adapter.submitList(pagedList)
         })
 
