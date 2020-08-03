@@ -1,4 +1,4 @@
-package com.mmoreno.pokeapp.ui.paging
+package com.mmoreno.pokeapp.view.paging
 
 import android.view.LayoutInflater
 import android.view.View

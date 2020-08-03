@@ -1,57 +1,84 @@
 package com.mmoreno.pokeapp.viewmodel
 
-import android.app.Application
 import android.view.View
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.mmoreno.pokeapp.PokeApp
 import com.mmoreno.pokeapp.model.PokeEntity
-import com.mmoreno.pokeapp.ui.paging.PokeBoundaryCallback
+import com.mmoreno.pokeapp.model.PokeRepository
+import com.mmoreno.pokeapp.view.paging.PokeBoundaryCallback
 
 /**
  * ViewModel for interacting and retrieving the information
+ * in the previous Week I was extending AndroidViewModel
+ * but in this Week's assignment I'm using just 'ViewModel'
  */
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel : ViewModel() {
 
     /**
      * MutableLiveData instance for observing and changing the UI
      * according it
      */
-    val showLoading: MutableLiveData<Int> = MutableLiveData()
+    private val loadingFlag: MutableLiveData<Int> = MutableLiveData()
+
+    /**
+     * Creating a variable for holding the LiveData
+     * and after expose it through a method
+     */
+    private val pokeList: LiveData<PagedList<PokeEntity>>
+
+    /**
+     * Variable for having a repository for interacting with the
+     * database
+     */
+    private val pokeRepository: PokeRepository
 
     init {
-        showLoading.postValue(View.GONE)
+        loadingFlag.postValue(View.GONE)
+        pokeList = initializedPagedListBuilder().build()
+        pokeRepository = PokeRepository(PokeApp.database)
     }
 
     /**
      * Initialize and build the PagedList
      * that can be converted to LiveData
+     * This function allows to observe the LiveData
      */
-    fun initializedPagedListBuilder():
+    private fun initializedPagedListBuilder():
             LivePagedListBuilder<Int, PokeEntity> {
+
 
         val config = PagedList.Config.Builder()
             .setPageSize(10)
             .setEnablePlaceholders(false)
             .build()
 
-        val database = PokeApp.database
         val livePageListBuilder = LivePagedListBuilder(
-            database.pokeDao().pokeRecords(),
+            pokeRepository.pokeRecords(),
             config
         )
         livePageListBuilder.setBoundaryCallback(
             PokeBoundaryCallback(
-                database, showLoading,
+                pokeRepository, loadingFlag,
                 viewModelScope
             )
         )
-
         return livePageListBuilder
     }
 
+    /**
+     * Custom method for exposing the LiveData object that wraps
+     * our List of PokeEntities :D
+     */
+    fun getListOfPokemon() = pokeList
 
+    /**
+     * Custom method for exposing the MutableLiveData variable
+     * that is used for changing the visibility state of the progress bar in the UI
+     */
+    fun getLoadingFlag() = loadingFlag
 }

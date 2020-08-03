@@ -1,11 +1,11 @@
-package com.mmoreno.pokeapp.ui.paging
+package com.mmoreno.pokeapp.view.paging
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.mmoreno.pokeapp.PokeApp
-import com.mmoreno.pokeapp.model.PokeDatabase
 import com.mmoreno.pokeapp.model.PokeEntity
+import com.mmoreno.pokeapp.model.PokeRepository
 import com.mmoreno.pokeapp.networking.PokeResponse
 import com.mmoreno.pokeapp.util.PagingRequestHelper
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors
  * based on the interaction of the user with the view
  */
 class PokeBoundaryCallback(
-    private val db: PokeDatabase,
+    private val repository: PokeRepository ,
     private val loaderNotification: MutableLiveData<Int>,
     private val viewModelScope: CoroutineScope
 ) :
@@ -60,7 +60,7 @@ class PokeBoundaryCallback(
 
     /**
      * Where we load the last item, we need to make another request using Retrofit
-     * course is there are no records in the dadtabase
+     * course is there are no records in the database
      */
     override fun onItemAtEndLoaded(itemAtEnd: PokeEntity) {
         super.onItemAtEndLoaded(itemAtEnd)
@@ -92,7 +92,7 @@ class PokeBoundaryCallback(
         mPrevious = request.previous
         mNext = request.next
         if (records.isNotEmpty()) {
-            db.pokeDao().insert(records)
+            repository.create(records)
             helperCallback.recordSuccess()
         }
     }

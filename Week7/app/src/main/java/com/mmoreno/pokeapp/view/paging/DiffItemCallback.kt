@@ -1,4 +1,4 @@
-package com.mmoreno.pokeapp.ui.paging
+package com.mmoreno.pokeapp.view.paging
 
 import androidx.recyclerview.widget.DiffUtil
 import com.mmoreno.pokeapp.model.PokeEntity
