@@ -26,6 +26,7 @@
         android:layout_height="0dp"
         android:contentDescription="@string/posterMovieContentDescription"
         android:scaleType="fitCenter"
+        android:transitionName="@string/transitionName"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"

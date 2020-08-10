@@ -7,4 +7,7 @@
         android:icon="@drawable/ic_logout"
         android:title="@string/logoutLabel"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/actionInfo"
+        android:title="Info" />
 </menu>

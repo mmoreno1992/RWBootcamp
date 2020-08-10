@@ -24,6 +24,7 @@
         android:layout_height="@dimen/posterMovieHeight"
         android:contentDescription="@string/posterMovieContentDescription"
         android:scaleType="fitCenter"
+        android:transitionName="@string/transitionName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -79,5 +80,5 @@
         app:layout_constraintStart_toEndOf="@+id/posterMovie"
         app:layout_constraintTop_toBottomOf="@+id/movieGenre" />
 
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

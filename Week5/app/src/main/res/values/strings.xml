@@ -29,5 +29,9 @@
     <string name="rememberMeCheckBoxLabel">Remember Me</string>
     <string name="checkUserAndPasswordLengthLogin">Check username/password length to login</string>
     <string name="uploadProfileImageTooltip">Click to pick a profile image</string>
+    <string name="transitionName">poster_movie_transition</string>
+    <string name="createdByLabel">Created By</string>
+    <string name="myName">Mario Moreno</string>
+    <string name="thanksToJenAndRay">Thanks to Jenn and all the RayWenderlich\'s Team</string>
 
 </resources>

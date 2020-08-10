@@ -1,13 +1,18 @@
 package com.mmoreno.favmovies
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -22,8 +27,8 @@ import kotlinx.android.synthetic.main.fragment_movies_list.*
  * First and main fragment for displaying the list of movies
  */
 class MoviesListFragment : Fragment(), MoviesAdapter.OnMovieClickListener {
-    private lateinit var adapter: MoviesAdapter
-    private lateinit var moviesViewModel: MoviesViewModel
+    private val adapter: MoviesAdapter by lazy { MoviesAdapter(mutableListOf(), this) }
+    private val moviesViewModel: MoviesViewModel by viewModels()
 
     /**
      * Overriding default method
@@ -31,14 +36,13 @@ class MoviesListFragment : Fragment(), MoviesAdapter.OnMovieClickListener {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
         setHasOptionsMenu(true)
     }
 
     /**
      * Overriding default onCreateView
      * @param inflater object to inflate an XML
-     * @param container viewgroup to the new view be attached later
+     * @param container ViewGroup to the new view be attached later
      * @param savedInstanceState bundle to save/recover state
      * @return [Unit]
      */
@@ -85,8 +89,22 @@ class MoviesListFragment : Fragment(), MoviesAdapter.OnMovieClickListener {
         if (item.itemId == R.id.actionLogout) {
             askConfirmationToLogout()
             return true
+        } else if (item.itemId == R.id.actionInfo) {
+            showCreatedByDialog()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    /**
+     * Custom method for showing a view that acts as a it was a dialog
+     * and automatically hides after 3 seconds
+     */
+    private fun showCreatedByDialog() {
+        createdByView.visibility = View.VISIBLE
+        animateCreatedByView(createdByView.height.toFloat(), 0f)
+        Handler().postDelayed({
+            view?.let { animateCreatedByView(0f, createdByView.height.toFloat()) }
+        }, 3000)
     }
 
     /**
@@ -110,7 +128,7 @@ class MoviesListFragment : Fragment(), MoviesAdapter.OnMovieClickListener {
     }
 
     /**
-     * Method for logging out, it updates the [IS_LOGGED_IN]
+     * Method for logging out, it updates the IS_LOGGED_IN
      * key in the SharedPreferences file for managing the logged in state
      * @return [Unit]
      */
@@ -137,7 +155,6 @@ class MoviesListFragment : Fragment(), MoviesAdapter.OnMovieClickListener {
                 LinearLayoutManager.VERTICAL
             )
         )
-        adapter = MoviesAdapter(mutableListOf(), this)
         moviesRecyclerView.adapter = adapter
         moviesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -172,11 +189,18 @@ class MoviesListFragment : Fragment(), MoviesAdapter.OnMovieClickListener {
      * @param movieId this is the index of the list in my data repository
      * @return [Unit]
      */
-    override fun openMovieDetailFragment(movieId: Int) {
+    override fun openMovieDetailFragment(holderView: View, movieId: Int) {
         view?.let {
+            val imageView = holderView.findViewById<ImageView>(R.id.posterMovie)
             val action =
                 MoviesListFragmentDirections.actionMoviesListFragmentToMovieDetailFragment(movieId)
-            it.findNavController().navigate(action)
+            val bundle = Bundle()
+            bundle.putInt("movieId", movieId)
+            val transitionName = holderView.context.getString(R.string.transitionName)
+            val extras = FragmentNavigatorExtras(
+                imageView as View to transitionName
+            )
+            it.findNavController().navigate(action.actionId, bundle, null, extras)
         }
     }
 
@@ -187,6 +211,13 @@ class MoviesListFragment : Fragment(), MoviesAdapter.OnMovieClickListener {
      */
     override fun updateMovie(movie: Movie) {
         moviesViewModel.updateMovie(movie)
+    }
+
+    private fun animateCreatedByView(startValue: Float, endValue: Float) {
+        val animator = ObjectAnimator.ofFloat(createdByView, "translationY", startValue, endValue)
+        animator.interpolator = AccelerateDecelerateInterpolator()
+        animator.duration = 500
+        animator.start()
     }
 
 }
