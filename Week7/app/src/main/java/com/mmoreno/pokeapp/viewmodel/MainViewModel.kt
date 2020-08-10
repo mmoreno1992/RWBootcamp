@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.mmoreno.pokeapp.PokeApp
 import com.mmoreno.pokeapp.model.PokeEntity
 import com.mmoreno.pokeapp.model.PokeRepository
 import com.mmoreno.pokeapp.view.paging.PokeBoundaryCallback
@@ -17,7 +16,7 @@ import com.mmoreno.pokeapp.view.paging.PokeBoundaryCallback
  * in the previous Week I was extending AndroidViewModel
  * but in this Week's assignment I'm using just 'ViewModel'
  */
-class MainViewModel : ViewModel() {
+class MainViewModel(private val pokeRepository: PokeRepository) : ViewModel() {
 
     /**
      * MutableLiveData instance for observing and changing the UI
@@ -31,16 +30,10 @@ class MainViewModel : ViewModel() {
      */
     private val pokeList: LiveData<PagedList<PokeEntity>>
 
-    /**
-     * Variable for having a repository for interacting with the
-     * database
-     */
-    private val pokeRepository: PokeRepository
 
     init {
         loadingFlag.postValue(View.GONE)
         pokeList = initializedPagedListBuilder().build()
-        pokeRepository = PokeRepository(PokeApp.database)
     }
 
     /**
@@ -50,7 +43,6 @@ class MainViewModel : ViewModel() {
      */
     private fun initializedPagedListBuilder():
             LivePagedListBuilder<Int, PokeEntity> {
-
 
         val config = PagedList.Config.Builder()
             .setPageSize(10)
@@ -81,4 +73,5 @@ class MainViewModel : ViewModel() {
      * that is used for changing the visibility state of the progress bar in the UI
      */
     fun getLoadingFlag() = loadingFlag
+
 }

@@ -6,11 +6,7 @@ import com.mmoreno.pokeapp.model.dao.PokeDao
  * Implementation of the Repository interface
  * in this case for interacting with Room Database
  */
-class PokeRepository(private val database: PokeDatabase) : Repository<PokeEntity, String> {
-
-    //Variable for holding the Dao for interacting with the table
-    //and delegate it the interaction with the database
-    private val pokeDao: PokeDao = database.pokeDao()
+class PokeRepository(private val pokeDao: PokeDao) : Repository<PokeEntity, String> {
 
     /**
      * Method for updating an entity

@@ -1,26 +1,31 @@
 package com.mmoreno.pokeapp
 
 import android.app.Application
-import androidx.room.Room
-import com.mmoreno.pokeapp.model.PokeDatabase
-import com.mmoreno.pokeapp.networking.buildApiService
+import com.mmoreno.pokeapp.di.databaseModule
+import com.mmoreno.pokeapp.di.mainViewModule
+import com.mmoreno.pokeapp.di.networkModule
+import com.mmoreno.pokeapp.di.threadingModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+
 
 class PokeApp : Application() {
     companion object {
         lateinit var instance: PokeApp
-        lateinit var database: PokeDatabase
-        val workName = "DownloadData"
-
-        val apiService by lazy {
-            buildApiService()
-        }
+        const val workName = "DownloadData"
     }
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        database = Room.databaseBuilder(this, PokeDatabase::class.java, "pokeDB.db").build()
-
+        //Now this is done through dependency injection.
+        // database = Room.databaseBuilder(this, PokeDatabase::class.java, ).build()
+        startKoin {
+            androidContext(this@PokeApp)
+            androidLogger()
+            modules(listOf(databaseModule, mainViewModule, networkModule, threadingModule))
+        }
     }
 
 

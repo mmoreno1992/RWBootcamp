@@ -3,14 +3,15 @@ package com.mmoreno.pokeapp.view.paging
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
-import com.mmoreno.pokeapp.PokeApp
 import com.mmoreno.pokeapp.model.PokeEntity
 import com.mmoreno.pokeapp.model.PokeRepository
 import com.mmoreno.pokeapp.networking.PokeResponse
+import com.mmoreno.pokeapp.networking.PokeService
 import com.mmoreno.pokeapp.util.PagingRequestHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.util.concurrent.Executors
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * Custom Callback for interacting with the paging feature
@@ -18,19 +19,19 @@ import java.util.concurrent.Executors
  * based on the interaction of the user with the view
  */
 class PokeBoundaryCallback(
-    private val repository: PokeRepository ,
+    private val repository: PokeRepository,
     private val loaderNotification: MutableLiveData<Int>,
     private val viewModelScope: CoroutineScope
 ) :
-    PagedList.BoundaryCallback<PokeEntity>() {
+    PagedList.BoundaryCallback<PokeEntity>(), KoinComponent {
 
     /**
      * api Service for interacting in the web using Retrofit
+     * now it is using inject() with Koin :D
      */
-    private val api = PokeApp.apiService
-    private val executor = Executors.newSingleThreadExecutor()
+    private val api: PokeService by inject()
     //An executor is needed for retrying operations
-    private val helper = PagingRequestHelper(executor)
+    private val helper: PagingRequestHelper by inject<PagingRequestHelper>()
     private var mPrevious: String? = null
     private var mNext: String? = null
 
