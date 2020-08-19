@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/aclonica</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="HeaderMovieItem" parent="Widget.MaterialComponents.TextView">

@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.like.LikeButton
 import com.like.OnLikeListener
 import com.mmoreno.favmovies.model.Movie
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie_list.view.*
-import java.text.SimpleDateFormat
+import java.text.DateFormat
 import java.util.*
 
 
@@ -27,7 +26,6 @@ class MoviesAdapter(
     var scrollingDirection = ScrollDirection.DOWN
 
     companion object {
-        private const val DATE_FORMAT_2 = "dd-MMM-yyyy"
 
         /**
          * Helper method for formatting a date
@@ -35,7 +33,7 @@ class MoviesAdapter(
          * @return [String] formatted String date
          */
         fun getFormattedDate(date: Date): String? {
-            val dateFormat = SimpleDateFormat(DATE_FORMAT_2)
+            val dateFormat = DateFormat.getInstance()
             return dateFormat.format(date)
         }
     }
@@ -85,7 +83,7 @@ class MoviesAdapter(
      * @return [Unit]
      */
     private fun setRatingMovie(position: Int, rating: Float) {
-        val movie = moviesList[position];
+        val movie = moviesList[position]
         movie.rating = rating
         movieItemListener.updateMovie(movie)
     }
@@ -117,7 +115,7 @@ class MoviesAdapter(
          */
         fun bind(movie: Movie) {
             itemView.movieTitle.text = movie.title
-            Picasso.get().load(movie.poster).into(itemView.posterMovie)
+            itemView.posterMovie.setImageResource(movie.poster)
             itemView.favoriteButton.isLiked = movie.isFavorite
             itemView.ratingBar.rating = movie.rating
             itemView.movieGenre.text = movie.genre
@@ -149,13 +147,12 @@ class MoviesAdapter(
             })
         }
 
-
         /**
          * Helper method to animate every item in the RecyclerView
          * @param view instance of the RecyclerView to be animated
          * @return [Unit]
          */
-        fun animateViewHolder(view: View) {
+        private fun animateViewHolder(view: View) {
             if (view.animation == null) {
                 val animId =
                     if (scrollingDirection == ScrollDirection.DOWN) R.anim.bottom_slide else R.anim.top_slide
@@ -169,16 +166,16 @@ class MoviesAdapter(
          * @param v object that responds to the event
          * @return [Unit]
          */
-        override fun onClick(v: View?) {
-            movieItemListener.openMovieDetailFragment(moviesList[adapterPosition].id)
+        override fun onClick(v: View) {
+            movieItemListener.openMovieDetailFragment(v, moviesList[adapterPosition].id)
         }
     }
 
     /**
-     * Interface defined to communicate outisde of the Adapter
+     * Interface defined to communicate outside of the Adapter
      */
     interface OnMovieClickListener {
-        fun openMovieDetailFragment(movieId: Int)
+        fun openMovieDetailFragment(holderView: View, movieId: Int)
         fun updateMovie(movie: Movie)
     }
 

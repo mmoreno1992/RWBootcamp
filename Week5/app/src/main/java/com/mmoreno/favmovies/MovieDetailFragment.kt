@@ -5,21 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.transition.TransitionInflater
 import com.like.LikeButton
 import com.like.OnLikeListener
 import com.mmoreno.favmovies.model.Movie
 import com.mmoreno.favmovies.viewmodel.MoviesViewModel
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
 
 /**
- * Second fragment that shows the detail of a moview
+ * Second fragment that shows the detail of a movie
  */
 class MovieDetailFragment : Fragment() {
     private lateinit var movie: Movie
-    private lateinit var moviesViewModel: MoviesViewModel
+    private val moviesViewModel: MoviesViewModel by viewModels()
 
 
     /**
@@ -29,13 +29,14 @@ class MovieDetailFragment : Fragment() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+        sharedElementEnterTransition =
+            (TransitionInflater.from(context).inflateTransition(android.R.transition.explode))
     }
 
     /**
      * Overriding default onCreateView
      * @param inflater object to inflate an XML
-     * @param container viewgroup to the new view be attached later
+     * @param container ViewGroup to the new view be attached later
      * @param savedInstanceState bundle to save/recover state
      * @return [Unit]
      */
@@ -110,7 +111,7 @@ class MovieDetailFragment : Fragment() {
         releaseDateMovie.text = MoviesAdapter.getFormattedDate(movie.releaseDate)
         genreMovie.text = movie.genre
         summaryMovie.text = movie.summary
-        Picasso.get().load(movie.poster).into(posterMovie)
+        posterMovie.setImageResource(movie.poster)
         ratingBarDetail.rating = movie.rating
         favoriteButton.isLiked = movie.isFavorite
     }
